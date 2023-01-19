@@ -6,10 +6,6 @@
    max-height: 100px;
 }
 
-.btn {
-   margin-right: 5px;
-}
-
 .row {
    display: flex;
    align-items: center;
