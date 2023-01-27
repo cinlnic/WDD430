@@ -1,14 +1,20 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
-   <div class="row">
-      <div class="col-xs-12">
-         <h3>I am in the AppComponent!</h3>
-         <hr>
-         <app-servers></app-servers>
-         <!-- <div app-servers></div> -->
-         <!-- <div class="app-servers"></div> -->
-         <app-warning-alert></app-warning-alert>
-         <app-success-alert></app-success-alert>
-      </div>
-   </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let number of numbers"
+          {{ number }}>
+        </li>
+      </ul>
+      <!-- <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template> -->
+    </div>
+  </div>
 </div>
