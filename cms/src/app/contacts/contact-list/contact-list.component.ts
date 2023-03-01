@@ -11,6 +11,7 @@ import { ContactService } from '../contact.service';
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[];
   subscription: Subscription;
+  term: string;
 
   constructor(private contactService: ContactService) {}
 
@@ -22,6 +23,10 @@ export class ContactListComponent implements OnInit, OnDestroy {
           this.contacts = contacts;
           }
       )
+  }
+
+  search(value: string) {
+    this.term = value;
   }
 
   ngOnDestroy(): void {
