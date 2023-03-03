@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Message } from './message.model';
 import { MOCKMESSAGES } from './MOCKMESSAGES';
 
@@ -7,14 +9,38 @@ import { MOCKMESSAGES } from './MOCKMESSAGES';
 })
 export class MessageService {
   messages: Message[] = [];
-  messageChangedEvent = new EventEmitter<Message[]>();
+  maxMessageId: number;
+  messageChangedEvent = new Subject<Message[]>();
   
-  constructor() { 
-    this.messages = MOCKMESSAGES;
+  constructor(private http: HttpClient) { 
+    //this.messages = MOCKMESSAGES;
+  }
+
+  storeMessages() {
+    const messageString = JSON.stringify(this.messages);
+    const headers = new HttpHeaders()
+      .set('content-type', 'application/json');
+
+    this.http.put('https://wdd430-cms-app-default-rtdb.firebaseio.com/messages.json', messageString, {'headers': headers})
+      .subscribe(() => {
+        this.messageChangedEvent.next(this.messages.slice());
+      });
   }
 
   getMessages() {
-    return this.messages.slice();
+    this.http.get('https://wdd430-cms-app-default-rtdb.firebaseio.com/messages.json')
+      .subscribe(
+        (messages: Message[]) => {
+          this.messages = messages;
+          this.maxMessageId = this.getMaxId();
+
+          let messageCloneList = this.messages.slice();
+          this.messageChangedEvent.next(messageCloneList);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
   }
 
   getMessage(id: string): Message {
@@ -27,9 +53,20 @@ export class MessageService {
     return null;
   }
 
+  getMaxId(): number {
+    let maxId = 0;
+    this.messages.forEach(message => {
+      let currentId = parseInt(message.id);
+      if(currentId > maxId) {
+        maxId = currentId;
+      }
+    });
+    return maxId;
+  }
+
   addMessage(message: Message) {
     this.messages.push(message);
-    this.messageChangedEvent.emit(this.messages.slice());
+    this.storeMessages();
   }
 
 }
