@@ -1,10 +1,12 @@
-// Get dependencies
+//1YpBtnFdLh7vpGXO
+//Get dependencies
 var express = require('express');
 var path = require('path');
 var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
@@ -13,6 +15,17 @@ var index = require('./server/routes/app');
 const messageRoutes = require('./server/routes/messages');
 const contactRoutes = require('./server/routes/contacts');
 const documentsRoutes = require('./server/routes/documents');
+
+//establish a connection to the mongo database
+mongoose.connect('mongodb://127.0.0.1:27017/cms',
+  {useNewUrlParser: true}, (err, res) => {
+    if (err) {
+      console.log("Connection failed: " + err);
+    } 
+    else {
+      console.log("Connected to database!");
+    }
+  });
 
 var app = express(); // create an instance of express
 
@@ -57,7 +70,7 @@ app.get('*', (req, res) => {
 });
 
 // Define the port address and tell express to use this port
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || '4200';
 app.set('port', port);
 
 // Create HTTP server.

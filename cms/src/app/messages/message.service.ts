@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Message } from './message.model';
 import { MOCKMESSAGES } from './MOCKMESSAGES';
@@ -27,15 +27,19 @@ export class MessageService {
       });
   }
 
-  getMessages() {
-    this.http.get('https://wdd430-cms-app-default-rtdb.firebaseio.com/messages.json')
-      .subscribe(
-        (messages: Message[]) => {
-          this.messages = messages;
-          this.maxMessageId = this.getMaxId();
+  sortAndSend() {
+    let messageListClone = this.messages.slice();
+    this.messageChangedEvent.next(messageListClone);
+  }
 
-          let messageCloneList = this.messages.slice();
-          this.messageChangedEvent.next(messageCloneList);
+  getMessages() {
+    this.http.get<{message: string, messages: Message[] }>('http://127.0.0.1:4200/messages')
+      .subscribe(
+        (messageData) => {
+          console.log(messageData),
+          this.messages = messageData.messages;
+          this.maxMessageId = this.getMaxId();
+          this.sortAndSend();
         },
         (error: any) => {
           console.log(error);
@@ -65,8 +69,21 @@ export class MessageService {
   }
 
   addMessage(message: Message) {
-    this.messages.push(message);
-    this.storeMessages();
+    if(!message) {
+      return;
+    }
+
+    message.id = "";
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    //add to database
+    this.http.post<{message: string, newMessage: Message}>('http://127.0.0.1:4200/documents', document, {headers: headers})
+      .subscribe(
+        (responseData) => {
+          this.messages.push(responseData.newMessage);
+          this.sortAndSend();
+        }
+      )
   }
 
 }
