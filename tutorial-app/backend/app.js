@@ -1,12 +1,38 @@
-const express = require('express');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+const postsRoutes = require("./routes/posts");
 
 const app = express();
 
-app.use('/api/posts', (req, res, next) => {
-   const posts = [
-      
-   ];
-   res.json()
+mongoose
+  .connect(
+    "mongodb+srv://WDD430:1YpBtnFdLh7vpGXO@cluster0.lxabu.mongodb.net/posts?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  next();
 });
+
+app.use("/api/posts", postsRoutes);
 
 module.exports = app;
