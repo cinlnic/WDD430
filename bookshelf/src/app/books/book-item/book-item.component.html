@@ -1,0 +1,9 @@
+
+<div class="card" style="width: 18rem;">
+   <img src="{{ book.imageUrl }}" class="card-img-top" alt="{{ book.title }}">
+   <div class="card-body">
+     <h5 class="card-title">{{ book.title }}</h5>
+     <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+     <a href="#" class="stretched-link" [routerLink]="book.id"></a>
+   </div>
+  </div>

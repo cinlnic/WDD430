@@ -1,0 +1,14 @@
+<div class="row">
+   <div class="d-grid d-md-flex justify-content-md-end">
+      <a class="btn btn-primary" [routerLink]="['new']">Add a New Book</a>
+   </div>
+   <div class="row">
+      <div class=" card-group">
+         <app-book-item
+            *ngFor="let book of books; let i = index"
+            [book]="book"
+            [index]="i">
+         </app-book-item>
+      </div>
+   </div>
+</div>
