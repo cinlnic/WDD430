@@ -1,0 +1,16 @@
+.search-row {
+   display: flex;
+   justify-content: space-between;
+   margin: 25px 0 25px 0;
+}
+
+.input-box {
+ display: flex;
+}
+
+.input-group-text {
+   border-top-left-radius: 0;
+   border-bottom-left-radius: 0;
+   margin-left: -5px;
+   max-width: 15%;
+}

@@ -18,7 +18,6 @@ export class BookDetailComponent implements OnInit {
 
     save(id: string) {
       this.book = this.bookService.getBook(id);
-      console.log(this.book)
     }
   
   ngOnInit() {
@@ -35,10 +34,6 @@ export class BookDetailComponent implements OnInit {
   onDelete(){
     this.bookService.deleteBook(this.book);
     this.router.navigate(['/books'], {relativeTo: this.route});
-  }
-
-  onEdit() {
-    
   }
 
 }

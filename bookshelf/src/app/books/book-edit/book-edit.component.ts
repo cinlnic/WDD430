@@ -27,6 +27,15 @@ export class BookEditComponent implements OnInit{
             this.editMode = false;
             return;
           }
+
+          this.originalBook = this.bookService.getBook(id);
+
+          if (!this.originalBook) {
+            return;
+          }
+
+          this.editMode = true;
+          this.book = JSON.parse(JSON.stringify(this.originalBook));
         }
       )
   }

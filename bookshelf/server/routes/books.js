@@ -44,10 +44,57 @@ router.post("/", (req, res, next) => {
       });
 });
 
+router.put('/:id', (req, res, next) => {
+   Book.findOne({id: req.params.id})
+      .then(book => {
+         book.title = req.body.title;
+         book.author = req.body.author;
+         book.description = req.body.description;
+         book.imageUrl = req.body.imageUrl;
+         book.isbn = req.body.isbn;
+         book.tags = req.body.tags;
+
+         Book.updateOne({id: req.params.id}, book)
+            .then(result => {
+               res.status(204).json({
+                  message: 'Book updated successfully'
+               });
+            })
+            .catch(error => {
+               res.status(500).json({
+                  message: 'An error occurred',
+                  error: error
+               });
+            });
+      })
+      .catch(error => {
+         res.status(500).json({
+            message: 'Book not found',
+            error: {book: 'Book not found'}
+         });
+      });
+});
+
 router.delete("/:id", (req, res, next) => {
-   console.log(req.params.id);
-   Book.deleteOne({id: req.params.id}).then();
-   res.status(200).json({message: "Deleted"})
+   Book.findOne({id: req.params.id})
+      .then(book => {
+         Book.deleteOne({_id: req.params.id})
+            .then(result => {
+               res.status(200).json({message: "Deleted"})
+            })
+            .catch(error => {
+               res.status(500).json({
+                  message: 'An error occured',
+                  error: error
+               });
+            });
+      })
+      .catch(error => {
+         res.status(500).json({
+            message: 'Book not found',
+            error: {book: 'Book not found'}
+         });
+      });
 });
 
 module.exports = router;

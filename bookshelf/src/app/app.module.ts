@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     BookDetailComponent,
     BookEditComponent,
     BookItemComponent,
+    SearchFilterPipe,
     
   ],
   imports: [

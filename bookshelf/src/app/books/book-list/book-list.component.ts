@@ -11,6 +11,7 @@ import { BookService } from '../book.service';
 export class BookListComponent implements OnInit, OnDestroy{
   books: Book[] = [];
   subscription: Subscription;
+  term: string;
 
   constructor(private bookService: BookService) {}
 
@@ -22,6 +23,10 @@ export class BookListComponent implements OnInit, OnDestroy{
           this.books = books;
         }
       );
+  }
+
+  search(value: string) {
+    this.term = value;
   }
 
   ngOnDestroy(): void {

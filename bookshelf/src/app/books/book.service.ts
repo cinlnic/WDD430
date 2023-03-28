@@ -45,7 +45,6 @@ export class BookService {
    }
 
    getBook(id: string): Book {
-      console.log(id);
       for (const book of this.books) {
          if (book.id === id) {
             return book;
@@ -76,7 +75,7 @@ export class BookService {
       }
 
       const pos = this.books.findIndex(b => b.id === originalBook.id);
-
+      
       if(pos < 0) {
          return;
       }
@@ -106,9 +105,10 @@ export class BookService {
          return;
       }
 
-      this.http.delete('http://127.0.0.1:4200/boooks/' + book.id)
+      this.http.delete('http://127.0.0.1:4200/books/' + book.id)
          .subscribe(
-            (response: Response) => {
+            () => {
+               console.log('Deleted');
                this.books.splice(pos, 1);
                this.sortAndSave();
             }

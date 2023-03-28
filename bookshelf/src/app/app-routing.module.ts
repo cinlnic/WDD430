@@ -7,10 +7,9 @@ import { BooksComponent } from "./books/books.component";
 
 const appRoutes: Routes = [
    {path: '', redirectTo: '/books', pathMatch: 'full'},
-    { path: 'books', component: BooksComponent, children: [
-      { path: 'new', component: BookEditComponent },
-      { path: ':id/edit', component: BookEditComponent }
-   ]},
+   { path: 'books', component: BooksComponent},
+   { path: 'books/new', component: BookEditComponent },
+   { path: 'books/:id/edit', component: BookEditComponent },
    { path: 'books/:id', component: BookDetailComponent } 
 ]
 

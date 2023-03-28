@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+   background-color: #f4f1de !important;
+}
+
+.navbar {
+   background-color: #81b29a !important;
+}
+
+.btn {
+   margin-right: 5px;
+}
+
+.btn-primary {
+   background-color: #e07a5f !important;
+   border-color: #e07a5f !important;
+}
+
+.btn-success {
+   background-color: #81b29a !important;
+   border-color: #81b29a !important;
+}
+
+.card {
+   background-color: #f2cc8f7e !important;
+}
