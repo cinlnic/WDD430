@@ -1,0 +1,12 @@
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div> 
+      <h5 class="fw-bold">{{ book.title }}</h5>
+        <div>{{ book.author }}</div>
+      </div> 
+        <div>
+          <button class="btn btn-success" type="submit" (click)="moveToShelf()">Add to Bookshelf</button>
+          <button class="btn btn-primary" type="button" (click)="onDelete()">Delete</button>
+        </div>
+    </li>
+

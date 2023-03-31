@@ -1,6 +1,5 @@
-
 <div class="panel panel-default">
-   <h1>{{ editMode ? 'Update Book' : 'Add a Book'}}</h1>
+   <h1>{{ editMode ? 'Update Book in Wishlist' : 'Add a Book to Wishlist'}}</h1>
    <div class="panel-body">
       <form id="book-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
          <div class="row">
@@ -35,49 +34,6 @@
             </div>
          </div>
 
-         <div class="row">
-            <div class="col-sm-12 form-group">
-               <label for="Isbn">ISBN</label>
-               <input 
-                  type="text"
-                  id="isbn"
-                  class="form-control"
-                  size="120"
-                  max="120"
-                  name="isbn"
-                  [ngModel]="book?.isbn"
-                  #isbn="ngModel">
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col-sm-12 form-group">
-               <label for="description">Description</label>
-               <input 
-                  type="text"
-                  id="description"
-                  class="form-control"
-                  size="120"
-                  max="120"
-                  name="description"
-                  [ngModel]="book?.description">
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col-sm-12 form-group">
-               <label for="imageUrl">ImageUrl</label>
-               <input 
-                  type="text"
-                  id="imageUrl"
-                  class="form-control"
-                  size="120"
-                  max="120"
-                  name="imageUrl"
-                  [ngModel]="book?.imageUrl"
-                  #imageUrl="ngModel">
-            </div>
-         </div>
          <div class="alert alert-danger" *ngIf="!title.valid || !author.valid">
             The title and author are required fields.
           </div>

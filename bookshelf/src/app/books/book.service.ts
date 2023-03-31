@@ -11,7 +11,7 @@ import { Book } from "./book.model";
 export class BookService {
    books: Book[] = [];
    bookListUpdate = new Subject<Book[]>();
-   bookSelectedEvent = new EventEmitter<Document>();
+   //bookSelectedEvent = new EventEmitter<Book>();
 
    constructor(private http: HttpClient) { }
 

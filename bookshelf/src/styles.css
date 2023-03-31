@@ -22,6 +22,10 @@ body {
    border-color: #81b29a !important;
 }
 
-.card {
+.card, .list-group-item {
    background-color: #f2cc8f7e !important;
+}
+
+.btn-secondary {
+   background-color: #3d405b !important;
 }

@@ -13,6 +13,7 @@ var index = require('./server/routes/app');
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
 const bookRoutes = require('./server/routes/books');
+const wishlistRoutes = require('./server/routes/wishlist');
 
 //establish a connection to the mongo database
 mongoose.connect('mongodb://127.0.0.1:27017/bookshelf',
@@ -59,6 +60,7 @@ app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 app.use('/books', bookRoutes);
+app.use('/wishlist', wishlistRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

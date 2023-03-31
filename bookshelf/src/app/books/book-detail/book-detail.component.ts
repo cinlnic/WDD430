@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Book } from '../book.model';
 import { BookService } from '../book.service';
 
+
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
@@ -12,13 +13,10 @@ export class BookDetailComponent implements OnInit {
   book: Book;
   id: string;
 
+
   constructor(private bookService: BookService,
               private router: Router,
               private route: ActivatedRoute) {}
-
-    save(id: string) {
-      this.book = this.bookService.getBook(id);
-    }
   
   ngOnInit() {
     this.route.params
@@ -28,7 +26,6 @@ export class BookDetailComponent implements OnInit {
           this.book = this.bookService.getBook(this.id);
         }
       );
-      this.save(this.id);
   }
 
   onDelete(){

@@ -11,9 +11,11 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { BookItemComponent } from './books/book-item/book-item.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { WishlistListComponent } from './wishlist/wishlist-list/wishlist-list.component';
+import { WishlistItemComponent } from './wishlist/wishlist-item/wishlist-item.component';
+import { WishlistEditComponent } from './wishlist/wishlist-edit/wishlist-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,16 +27,18 @@ import { SearchFilterPipe } from './search-filter.pipe';
     BookEditComponent,
     BookItemComponent,
     SearchFilterPipe,
-    
+    WishlistComponent,
+    WishlistListComponent,
+    WishlistItemComponent,
+    WishlistEditComponent,  
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    NgbModule
+    AppRoutingModule
   ],
-  providers: [BookDetailComponent, NgbActiveModal],
+  providers: [BookDetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

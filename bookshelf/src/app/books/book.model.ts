@@ -11,7 +11,7 @@ export class Book {
       this.title = title;
       this.author = author;
       this.description = description;
-      this.imageUrl = imageUrl;
+      this.imageUrl = imageUrl === null ? "../../../assets/images/books.jpg" : imageUrl;
       this.isbn = isbn;
       this.tags = tags;
    }
