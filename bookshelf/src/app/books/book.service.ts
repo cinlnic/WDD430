@@ -45,19 +45,20 @@ export class BookService {
    }
 
    getBook(id: string): Book {
-      for (const book of this.books) {
-         if (book.id === id) {
-            return book;
-         }
-      };
-      return null;
+      return {...this.books.find(b => b.id === id)};
+      // for (const book of this.books) {
+      //    if (book.id === id) {
+      //       return book;
+      //    }
+      // };
+      // return null;
    }
 
    addBook(book: Book) {
       if(!book) {
          return;
       }
-
+      
       const headers = new HttpHeaders({'Content-Type': 'application/json'});
       
       this.http.post<{message: String; book: Book}>('http://127.0.0.1:4200/books', book, {headers: headers})
@@ -70,13 +71,17 @@ export class BookService {
    }
 
    updateBook(originalBook: Book, newBook: Book) {
+      let originalIndex = 0;
       if(!originalBook || !newBook) {
          return;
       }
+      console.log(originalBook);
+      console.log(newBook);
 
-      const pos = this.books.findIndex(b => b.id === originalBook.id);
-      
-      if(pos < 0) {
+      originalIndex = this.books.findIndex(b => b.id === originalBook.id);
+      console.log(originalIndex);
+     
+      if(originalIndex < 0) {
          return;
       }
 
@@ -88,8 +93,11 @@ export class BookService {
     this.http.put('http://127.0.0.1:4200/books/' + originalBook.id, newBook, {headers: headers})
       .subscribe(
         (response: Response) => {
-          this.books[pos] = newBook;
-          this.sortAndSave();
+         console.log(response);
+          this.books[originalIndex] = newBook;
+          //this.sortAndSave();
+          //this.bookListUpdate.next(this.books);
+          console.log(this.books);
         }
       )
    }

@@ -20,7 +20,7 @@ export class WishlistItemComponent {
   }
 
   moveToShelf() {
-    this.bookService.addBook(this.book)
+    this.bookService.addBook(this.book);
     this.onDelete();
     this.router.navigate(['/books'], {relativeTo: this.route});
   }

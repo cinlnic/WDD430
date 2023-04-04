@@ -3,6 +3,9 @@
    <h1>{{ editMode ? 'Update Book' : 'Add a Book'}}</h1>
    <div class="panel-body">
       <form id="book-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
+         <p class="required" *ngIf="!title.valid || !author.valid">
+            **The title and author are required fields.**
+         </p>
          <div class="row">
             <div class="col-sm-12 form-group">
                <label for="title">Title</label>
@@ -78,9 +81,6 @@
                   #imageUrl="ngModel">
             </div>
          </div>
-         <div class="alert alert-danger" *ngIf="!title.valid || !author.valid">
-            The title and author are required fields.
-          </div>
 
          <div class="row">
             <div class="col-xs-12 btn-toolbar">

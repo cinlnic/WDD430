@@ -44,15 +44,16 @@ router.post("/", (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-   Book.findOne({id: req.params.id})
-      .then(book => {
-         book.title = req.body.title;
-         book.author = req.body.author;
-         book.description = req.body.description;
-         book.imageUrl = req.body.imageUrl;
-         book.isbn = req.body.isbn;
+   const book = new Book ({
+      _id: req.body.id,
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      isbn: req.body.isbn,
+   });
 
-         Book.updateOne({id: req.params.id}, book)
+         Book.updateOne({_id: req.params.id}, book)
             .then(result => {
                res.status(204).json({
                   message: 'Book updated successfully'
@@ -64,13 +65,6 @@ router.put('/:id', (req, res, next) => {
                   error: error
                });
             });
-      })
-      .catch(error => {
-         res.status(500).json({
-            message: 'Book not found',
-            error: {book: 'Book not found'}
-         });
-      });
 });
 
 router.delete("/:id", (req, res, next) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Book } from '../book.model';
 import { BookService } from '../book.service';
 
@@ -13,12 +13,24 @@ export class BookEditComponent implements OnInit{
   originalBook: Book;
   book: Book;
   editMode: boolean = false;
-
+  
   constructor(private bookService: BookService,
               private router: Router,
               private route: ActivatedRoute) {}
 
   ngOnInit() {
+    // this.route.paramMap.subscribe(
+    //   (paramMap: ParamMap) => {
+    //     if (paramMap.has('id')) {
+    //       this.editMode = true;
+    //       this.bookId = paramMap.get('id');
+    //       this.book = this.bookService.getBook(this.bookId);
+    //     } else {
+    //       this.editMode = false;
+    //       this.bookId = null;
+    //     }
+    //   }
+    // );
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -47,8 +59,7 @@ export class BookEditComponent implements OnInit{
       value.author,
       value.description,
       value.imageUrl,
-      value.isbn,
-      value.tags
+      value.isbn
     );
     if(this.editMode) {
       this.bookService.updateBook(this.originalBook, newBook);

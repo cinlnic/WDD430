@@ -29,30 +29,18 @@ export class WishlistService {
               id: book._id,
               title: book.title,
               author: book.author,
-              description: book.description,
-              imageUrl: book.imageUrl,
-              isbn: book.isbn,
-              tags: book.tags,
+              imageUrl: book.imageUrl
             };
           });
         })
       )
       .subscribe({
-        next: (transformedBooks) => {
-          this.wishlistBooks = transformedBooks;
+        next: (transformedWishlist) => {
+          this.wishlistBooks = transformedWishlist;
           this.sortAndSave();
         },
         error: (e) => console.log(e),
       });
-  }
-
-  getBook(id: string): Book {
-    for (const book of this.wishlistBooks) {
-      if (book.id === id) {
-        return book;
-      }
-    }
-    return null;
   }
 
   addBook(book: Book) {
@@ -63,43 +51,13 @@ export class WishlistService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http
-      .post<{ message: String; book: Book }>(
-        'http://127.0.0.1:4200/wishlist',
-
-        book,
-        { headers: headers }
-      )
-      .subscribe((responseData) => {
-        this.wishlistBooks.push(responseData.book);
-        this.sortAndSave();
-      });
+      .post<{ message: String; book: Book}>('http://127.0.0.1:4200/wishlist', book, { headers: headers })
+        .subscribe((responseData) => {
+          this.wishlistBooks.push(responseData.book);
+          this.sortAndSave();
+        });
   }
 
-  updateBook(originalBook: Book, newBook: Book) {
-    if (!originalBook || !newBook) {
-      return;
-    }
-
-    const pos = this.wishlistBooks.findIndex((b) => b.id === originalBook.id);
-
-    if (pos < 0) {
-      return;
-    }
-
-    newBook.id = originalBook.id;
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    //update database
-    this.http
-      .put('http://127.0.0.1:4200/wishlist/' + originalBook.id, newBook, {
-        headers: headers,
-      })
-      .subscribe((response: Response) => {
-        this.wishlistBooks[pos] = newBook;
-        this.sortAndSave();
-      });
-  }
 
   deleteBook(book: Book) {
     if(!book) {

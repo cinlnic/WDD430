@@ -22,7 +22,8 @@ router.get('/', (req, res, next) => {
 router.post("/", (req, res, next) => {
    const book = new Wishlist({
       title: req.body.title,
-      author: req.body.author
+      author: req.body.author,
+      imageUrl: req.body.imageUrl
    });
 
    console.log(book)
